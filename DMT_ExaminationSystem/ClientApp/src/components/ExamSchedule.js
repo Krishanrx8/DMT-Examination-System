@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import './ExamSchedule.css';
+import './styles/ExamSchedule.css';
 
 export class ExamSchedule extends Component {
     static displayName = ExamSchedule.name;
