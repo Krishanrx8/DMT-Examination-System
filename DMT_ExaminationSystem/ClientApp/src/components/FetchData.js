@@ -5,31 +5,31 @@ export class FetchData extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { examinees: [], loading: true };
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populateExamineeData();
   }
 
-  static renderForecastsTable(forecasts) {
+    static renderExamineesTable(examinees) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>Examinee ID</th>
+            <th>NIC No</th>
+            <th>Avatar</th>
+            <th>User ID</th>
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+          {examinees.map(examinee =>
+              <tr key={examinee.examinee_id}>
+                  <td>{examinee.examinee_id}</td>
+                  <td>{examinee.nic_no}</td>
+                  <td>{examinee.avatar}</td>
+                  <td>{examinee.user_id}</td>
             </tr>
           )}
         </tbody>
@@ -40,20 +40,21 @@ export class FetchData extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+      : FetchData.renderExamineesTable(this.state.examinees);
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
+        <h1 id="tabelLabel" >Examinee</h1>
         <p>This component demonstrates fetching data from the server.</p>
         {contents}
       </div>
     );
   }
 
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast');
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+  async populateExamineeData() {
+      const response = await fetch('https://localhost:7233/Examinee');
+      const data = await response.json();
+      console.log('Resultsssssssssssss', response);
+    this.setState({ examinees: data, loading: false });
   }
 }
