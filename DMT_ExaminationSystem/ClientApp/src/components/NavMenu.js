@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink ,Nav } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import './styles/NavMenu.css';
+
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -24,30 +24,22 @@ export class NavMenu extends Component {
   render() {
     return (
       <header>
-            <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" fluid light>
-                <NavbarBrand tag={Link} to="/"><img src={require('./styles/logo.png')} />DMT Examination System</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-                    <ul className="menu-bar navbar-nav flex-grow">
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-              </NavItem>
-                    <NavItem>
-                        <NavLink tag={Link} className="text-dark" to="/student-details">Student Details</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink tag={Link} className="text-dark" to="/exam-schedules">Exam Schedules</NavLink>
+            <Navbar color="light" light expand="md">
+                <NavbarBrand href="/"><img src={require('./styles/logo.png')} />DMT Examination System</NavbarBrand>
+                <NavbarToggler onClick={this.toggle} />
+                <Collapse isOpen={this.state.isOpen} navbar>
+                    <Nav className="ml-auto" navbar>
+                        <NavItem>
+                            <NavLink href="/exam-schedules">Exam Schedule</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch Data</NavLink>
-                        </NavItem>
-                    <NavItem>
-                        <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
+                            <NavLink href="/student-details">Examinee Details</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/questions">Questions</NavLink>
+                            <NavLink href="/Login">Login</NavLink>
                         </NavItem>
-            </ul>
+                        
+                    </Nav>
           </Collapse>
         </Navbar>
       </header>
