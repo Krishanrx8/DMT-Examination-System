@@ -1,37 +1,55 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DMT_ExaminationSystem.DataAccess.Entities;
-using DMT_ExaminationSystem.Models;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using DMT_ExaminationSystem.Models.Question_Bank;
+using DMT_ExaminationSystem.Services;
 
-namespace DMT_ExaminationSystem.Controllers
+[ApiController]
+[Route("[controller]")]
+public class Question_BankController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class Question_BankController : ControllerBase
+    private IQuestionBankService _questionBankService;
+    private IMapper _mapper;
+
+    public Question_BankController(
+        IQuestionBankService questionBankService,
+        IMapper mapper)
     {
-        private readonly Question_BankContext _Question_BankContext;
-        public Question_BankController(Question_BankContext Question_BankContext)
-        {
-            _Question_BankContext = Question_BankContext;
-        }
+        _questionBankService = questionBankService;
+        _mapper = mapper;
+    }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Question_Bank>>> GetQuestions()
-        {
-            return await _Question_BankContext.Question_Bank.ToListAsync();
-        }
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+        var users = _questionBankService.GetAll();
+        return Ok(users);
+    }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Question_Bank>> GetQuestions(int id)
-        {
-            var questions = await _Question_BankContext.Question_Bank.FindAsync(id);
+    [HttpGet("{question_id}")]
+    public IActionResult GetById(int question_id)
+    {
+        var user = _questionBankService.GetById(question_id);
+        return Ok(user);
+    }
 
-            if (questions == null)
-            {
-                return NotFound();
-            }
+    [HttpPost]
+    public IActionResult Create(CreateRequest model)
+    {
+        _questionBankService.Create(model);
+        return Ok(new { message = "Question created" });
+    }
 
-            return questions;
-        }
+    [HttpPut("{question_id}")]
+    public IActionResult Update(int question_id, UpdateRequest model)
+    {
+        _questionBankService.Update(question_id, model);
+        return Ok(new { message = "Question updated" });
+    }
+
+    [HttpDelete("{question_id}")]
+    public IActionResult Delete(int question_id)
+    {
+        _questionBankService.Delete(question_id);
+        return Ok(new { message = "Question deleted" });
     }
 }

@@ -1,25 +1,55 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DMT_ExaminationSystem.DataAccess.Entities;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using DMT_ExaminationSystem.Models.Examinee;
+using DMT_ExaminationSystem.Services;
 
-namespace DMT_ExaminationSystem.Controllers
-{
     [ApiController]
     [Route("[controller]")]
     public class ExamineeController : ControllerBase
     {
-        private readonly ExamineeContext _ExamineeContext;
-        public ExamineeController(ExamineeContext ExamineeContext)
+        private IExamineeService _examineeService;
+        private IMapper _mapper;
+
+        public ExamineeController(
+            IExamineeService examineeService,
+            IMapper mapper)
         {
-            _ExamineeContext = ExamineeContext;
+            _examineeService = examineeService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public IActionResult GetAll()
         {
-            var examinees = await _ExamineeContext.Examinee.ToListAsync();
-            Console.Write(examinees);
-            return Ok(examinees);
+            var users = _examineeService.GetAll();
+            return Ok(users);
+        }
+
+        [HttpGet("{examinee_id}")]
+        public IActionResult GetById(int examinee_id)
+        {
+            var user = _examineeService.GetById(examinee_id);
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateRequest model)
+        {
+            _examineeService.Create(model);
+            return Ok(new { message = "Examinee created" });
+        }
+
+        [HttpPut("{examinee_id}")]
+        public IActionResult Update(int examinee_id, UpdateRequest model)
+        {
+            _examineeService.Update(examinee_id, model);
+            return Ok(new { message = "Examinee updated" });
+        }
+
+        [HttpDelete("{examinee_id}")]
+        public IActionResult Delete(int examinee_id)
+        {
+            _examineeService.Delete(examinee_id);
+            return Ok(new { message = "Examinee deleted" });
         }
     }
-}

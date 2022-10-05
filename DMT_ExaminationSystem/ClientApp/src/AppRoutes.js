@@ -1,10 +1,10 @@
-import { Counter } from "./components/Counter";
-import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { Login } from "./components/Login";
 import { StudentDetails } from "./components/StudentDetails";
 import { ExamSchedule } from "./components/ExamSchedule";
 import { Questions } from "./components/Questions";
+import { List } from "./components/List";
+import { AddEdit } from "./components/AddEdit";
 
 const AppRoutes = [
   {
@@ -16,8 +16,8 @@ const AppRoutes = [
     element: <Login />
   },
   {
-    path: '/student-details',
-    element: <StudentDetails />
+      path: '/student-details',
+      element: <List />
   },
   {
     path: '/exam-schedules',
@@ -26,7 +26,15 @@ const AppRoutes = [
   {
     path: '/questions',
     element: <Questions />
-  }
+    },
+    {
+        path: '/student-details/add',
+        element: <AddEdit />
+    },
+    {
+        path: '/student-details/edit/:id',
+        element: <AddEdit />
+    }
 ];
 
 export default AppRoutes;

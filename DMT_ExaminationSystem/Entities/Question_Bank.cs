@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DMT_ExaminationSystem.Models
+namespace DMT_ExaminationSystem.Entities
 {
     public class Question_Bank
     {
