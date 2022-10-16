@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -11,7 +11,7 @@ import { userService } from '../services/user.service';
 function AddEdit() {
     const match = useLocation();
     const history = match.pathname;
-    const id = match.params;
+    const id = useParams();
     const isAddMode = !id;
 
     // form validation rules 
