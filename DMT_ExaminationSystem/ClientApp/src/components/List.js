@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation,  } from 'react-router-dom';
 
 import { userService } from '../services/user.service';
 
 function List() {
     const match = useLocation();
-    const  path = match.pathname;
+    const path = match.pathname;
     const [users, setUsers] = useState(null);
 
     useEffect(() => {

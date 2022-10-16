@@ -26,8 +26,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="Business\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="Business\**" />
+    <EmbeddedResource Remove="Business\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="Business\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -41,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Business\" />
     <Folder Include="ClientApp\src\components\examImages\" />
     <Folder Include="ClientApp\src\helpers\" />
   </ItemGroup>
