@@ -1,12 +1,16 @@
 ﻿import React, { Component } from 'react';
 import './styles/ExamSchedule.css';
+import './styles/Home.css';
 
 export class ExamSchedule extends Component {
     static displayName = ExamSchedule.name;
 
     render() {
         return (
-          <div class="container">
+            <div>
+            <div class="bg-image">
+                </div>
+            <div class="container">
 
   <div class="calendar-base">
 
@@ -97,7 +101,7 @@ export class ExamSchedule extends Component {
   
 
 </div>
-
+            </div>
         );
     }
 }

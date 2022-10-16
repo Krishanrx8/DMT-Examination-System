@@ -1,2 +1,10 @@
-﻿body {
+﻿.bg-image {
+    background-image: url("Home.jpg") !important;
+    filter: blur(8px);
+   
+    height: 100vh;
+    z-index: 0;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    
 }

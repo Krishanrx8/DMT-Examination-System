@@ -6,7 +6,10 @@ export class Login extends Component {
     static displayName = Login.name;
 
     render() {
-        return (
+		return (
+			<div>
+			<div class="bg-image">
+                </div>
 			<div class="login-wrap">
 				<div class="login-html">
 					<div class="login-form">
@@ -34,6 +37,7 @@ export class Login extends Component {
 					</div>
 				</div>
 				</div>
+			</div>
 			
         );
     }
