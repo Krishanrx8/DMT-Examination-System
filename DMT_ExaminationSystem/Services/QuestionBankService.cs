@@ -9,10 +9,10 @@ using DMT_ExaminationSystem.Models.Question_Bank;
 public interface IQuestionBankService
 {
     IEnumerable<Question_Bank> GetAll();
-    Question_Bank GetById(int user_id);
+    Question_Bank GetById(int question_id);
     void Create(CreateRequest model);
-    void Update(int user_id, UpdateRequest model);
-    void Delete(int user_id);
+    void Update(int question_id, UpdateRequest model);
+    void Delete(int question_id);
 }
 
 public class QuestionBankService : IQuestionBankService
@@ -33,9 +33,9 @@ public class QuestionBankService : IQuestionBankService
         return _context.Question_Bank;
     }
 
-    public Question_Bank GetById(int user_id)
+    public Question_Bank GetById(int question_id)
     {
-        return getUser(user_id);
+        return getQuestion(question_id);
     }
 
     public void Create(CreateRequest model)
@@ -58,7 +58,7 @@ public class QuestionBankService : IQuestionBankService
 
    public void Update(int id, UpdateRequest model)
     {
-        var question = getUser(id);
+        var question = getQuestion(id);
 
         // validate
         if (model.question_id != question.question_id && _context.Question_Bank.Any(x => x.question_id == model.question_id))
@@ -74,19 +74,19 @@ public class QuestionBankService : IQuestionBankService
         _context.SaveChanges();
     }
 
-    public void Delete(int user_id)
+    public void Delete(int question_id)
     {
-        var question = getUser(user_id);
+        var question = getQuestion(question_id);
         _context.Question_Bank.Remove(question);
         _context.SaveChanges();
     }
 
     // helper methods
 
-    private Question_Bank getUser(int id)
+    private Question_Bank getQuestion(int id)
     {
         var question = _context.Question_Bank.Find(id);
-        if (question == null) throw new KeyNotFoundException("Question_Bank not found");
+        if (question == null) throw new KeyNotFoundException("Question not found");
         return question;
     }
 }

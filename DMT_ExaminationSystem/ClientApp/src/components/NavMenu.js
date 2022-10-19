@@ -31,6 +31,9 @@ export class NavMenu extends Component {
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ms-auto" navbar>
                         <NavItem>
+                            <NavLink className="hover-underline-animation" href="/questions">Questions</NavLink>
+                        </NavItem>
+                        <NavItem>
                             <NavLink className="hover-underline-animation" href="/exam-schedules">Exam Schedule</NavLink>
                         </NavItem>
                         <NavItem>

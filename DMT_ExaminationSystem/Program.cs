@@ -20,6 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     // configure DI for application services
     services.AddScoped<IUserService, UserService>();
+    services.AddScoped<IQuestionBankService, QuestionBankService>();
 }
 
 var app = builder.Build();
@@ -31,7 +32,8 @@ var app = builder.Build();
         .AllowAnyHeader());
 
     app.UseMiddleware<ErrorHandlerMiddleware>();
-
+    app.UseAuthentication();
+    app.UseAuthorization();
     app.MapControllers();
 }
 

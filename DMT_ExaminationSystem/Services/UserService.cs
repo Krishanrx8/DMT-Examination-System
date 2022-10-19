@@ -12,6 +12,7 @@ public interface IUserService
     User GetById(int user_id);
     void Create(CreateRequest model);
     void Update(int user_id, UpdateRequest model);
+    void Login(LoginRequest model);
     void Delete(int user_id);
 }
 
@@ -22,7 +23,7 @@ public class UserService : IUserService
 
     public UserService(
         DataContext context,
-        IMapper mapper)
+        IMapper mapper) 
     {
         _context = context;
         _mapper = mapper;
@@ -73,6 +74,32 @@ public class UserService : IUserService
         _context.User.Update(user);
         _context.SaveChanges();
     }
+
+    public void Login(LoginRequest model)
+    {
+        var user = _context.User.Where(u => u.username == model.username);
+        if ((_context.User.Any(x => x.username == model.username)) && (_context.User.Any(x => x.password == model.password)))
+        {
+            Console.WriteLine(user);
+        }
+    }
+
+    /*public void Login(LoginRequest model)
+    {
+        var user = _context.User.Where(u => u.username == model.username);
+        // validate
+        if ((_context.User.Any(x => x.username == model.username)) && (_context.User.Any(x => x.password == model.password)))
+        {
+            Console.WriteLine("success");
+        }
+
+        // hash password if it was entered
+        *//* if (!string.IsNullOrEmpty(model.Password))
+             user.PasswordHash = BCrypt.HashPassword(model.Password);*//*
+
+        // copy model to user and save
+        _mapper.Map(model, user);
+    }*/
 
     public void Delete(int user_id)
     {

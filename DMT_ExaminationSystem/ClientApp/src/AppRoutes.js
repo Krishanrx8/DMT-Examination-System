@@ -1,5 +1,6 @@
-import { Home } from "./components/Home";
+/*import { Home } from "./components/Home";
 import { Login } from "./components/Login";
+import { Logout } from "./components/Logout";
 import { StudentDetails } from "./components/StudentDetails";
 import { ExamSchedule } from "./components/ExamSchedule";
 import { Questions } from "./components/Questions";
@@ -14,7 +15,11 @@ const AppRoutes = [
   {
     path: '/login',
     element: <Login />
-  },
+    },
+    {
+        path: '/loginout',
+        element: <Logout />
+    },
   {
       path: '/student-details',
       element: <List />
@@ -38,3 +43,4 @@ const AppRoutes = [
 ];
 
 export default AppRoutes;
+*/

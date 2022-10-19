@@ -1,23 +1,22 @@
-﻿import React, { Component } from 'react';
+﻿import React, { useState, useEffect } from 'react';
+import { Link, useLocation, } from 'react-router-dom';
 import './styles/Questions.css';
 
-export class Questions extends Component {
-    static displayName = Questions.name;
+import { questionService } from '../services/question.service';
 
-        constructor(props) {
-            super(props);
-            this.state = { questions: [], loading: true };
-        }
+function Questions() {
+    const match = useLocation();
+    const path = match.pathname;
+    const [questions, setQuestions] = useState(null);
 
-        componentDidMount() {
-            this.populateQuestions();
-        }
+    useEffect(() => {
+        questionService.getAll().then(x => setQuestions(x));
+    }, []);
 
-    static renderQuestionsTable(questions) {
         return (
             <div class="container mt-sm-5 my-1">
                 <div class="question ml-sm-5 pl-sm-5 pt-2">
-                    {questions.map(question =>
+                     {questions && questions.map(question =>
                         <div>
                             <div class="py-2 h5"><b>{question.question}</b></div>
                          {/*  <img src={require({ question.image })} />*/}
@@ -54,7 +53,7 @@ export class Questions extends Component {
             );
         }
 
-        render() {
+      /*  render() {
             let contents = this.state.loading
                 ? <p><em>Loading...</em></p>
                 : Questions.renderQuestionsTable(this.state.questions);
@@ -73,5 +72,6 @@ export class Questions extends Component {
             const data = await response.json();
             console.log('Resultsssssssssssss', response);
             this.setState({ questions: data, loading: false });
-        }
-    }
+        }*/
+
+export { Questions };

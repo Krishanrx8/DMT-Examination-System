@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using DMT_ExaminationSystem.Models.Question_Bank;
 using DMT_ExaminationSystem.Services;
+using DMT_ExaminationSystem.Models.Question_Bank;
 
 [ApiController]
 [Route("[controller]")]
@@ -21,15 +21,15 @@ public class Question_BankController : ControllerBase
     [HttpGet]
     public IActionResult GetAll()
     {
-        var users = _questionBankService.GetAll();
-        return Ok(users);
+        var questions = _questionBankService.GetAll();
+        return Ok(questions);
     }
 
     [HttpGet("{question_id}")]
     public IActionResult GetById(int question_id)
     {
-        var user = _questionBankService.GetById(question_id);
-        return Ok(user);
+        var question = _questionBankService.GetById(question_id);
+        return Ok(question);
     }
 
     [HttpPost]

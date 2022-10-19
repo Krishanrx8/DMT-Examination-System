@@ -46,7 +46,14 @@ using DMT_ExaminationSystem.Services;
             return Ok(new { message = "User updated" });
         }
 
-        [HttpDelete("{user_id}")]
+        [HttpPost("login")]
+        public IActionResult Login(LoginRequest model)
+        {
+            _userService.Login(model);
+            return Ok(new { message = "User logged" });
+        }
+
+    [HttpDelete("{user_id}")]
         public IActionResult Delete(int user_id)
         {
             _userService.Delete(user_id);

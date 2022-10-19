@@ -2,14 +2,13 @@ import { fetchWrapper } from '../helpers/fetch-wrapper';
 
 const config = 'https://localhost:7233';
 
-const baseUrl = `${config}/Users`;
+const baseUrl = `${config}/Question_Bank`;
 
-export const userService = {
+export const questionService = {
     getAll,
     getById,
     create,
     update,
-    login,
     delete: _delete
 };
 
@@ -23,10 +22,6 @@ function getById(user_id) {
 
 function create(params) {
     return fetchWrapper.post(baseUrl, params);
-}
-
-function login(params) {
-    return fetchWrapper.postDataForLogin(`${baseUrl}/login`, params);
 }
 
 function update(user_id, params) {

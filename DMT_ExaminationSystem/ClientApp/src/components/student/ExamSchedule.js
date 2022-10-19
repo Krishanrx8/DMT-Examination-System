@@ -1,7 +1,7 @@
 ﻿import React, { Component } from "react";
 import moment from "moment";
 import { range } from "moment-range";
-import "./styles/ExamSchedule.css";
+import "../styles/ExamSchedule.css";
 export class ExamSchedule extends Component {
     weekdayshort = moment.weekdaysShort();
 
