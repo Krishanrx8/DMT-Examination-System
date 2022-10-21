@@ -1,8 +1,8 @@
-﻿import React, { useState, useEffect } from 'react';
-import { Link, useLocation, } from 'react-router-dom';
-import './styles/Questions.css';
+﻿import React, { useState, useEffect } from "react";
+import { Link, useLocation, } from "react-router-dom";
+import "./styles/Questions.css";
 
-import { questionService } from '../services/question.service';
+import { questionService } from "../services/question.service";
 
 function Questions() {
     const match = useLocation();
@@ -68,9 +68,9 @@ function Questions() {
         }
 
         async populateQuestions() {
-            const response = await fetch('https://localhost:7233/Question_Bank');
+            const response = await fetch("https://localhost:7233/Question_Bank");
             const data = await response.json();
-            console.log('Resultsssssssssssss', response);
+            console.log("Resultsssssssssssss", response);
             this.setState({ questions: data, loading: false });
         }*/
 

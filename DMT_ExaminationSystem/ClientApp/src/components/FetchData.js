@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -14,7 +14,7 @@ export class FetchData extends Component {
 
     static renderExamineesTable(examinees) {
     return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
+      <table className="table table-striped" aria-labelledby="tabelLabel">
         <thead>
           <tr>
             <th>Examinee ID</th>
@@ -52,9 +52,9 @@ export class FetchData extends Component {
   }
 
   async populateExamineeData() {
-      const response = await fetch('https://localhost:7233/Examinee');
+      const response = await fetch("https://localhost:7233/Examinee");
       const data = await response.json();
-      console.log('Resultsssssssssssss', response);
+      console.log("Resultsssssssssssss", response);
     this.setState({ examinees: data, loading: false });
   }
 }

@@ -1,49 +1,45 @@
-import React, { Component } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import SessionManager from './helpers/SessionManager';
+import React, { Component, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import SessionManager from "./helpers/SessionManager";
 import { Home } from "./components/Home";
 import { Login } from "./components/Login";
-import { Logout } from "./components/Logout";
-import { List } from "./components/List";
+import { Layout } from "./components/Layout";
+import "../src/components/styles/custom.css";
+
+import { AddEditQuestions } from "./components/admin/AddEditQuestions";
+import { AdminDashboard } from "./components/admin/AdminDashboard";
+import { ExamResults } from "./components/admin/ExamResults";
+import { SetExamination } from "./components/admin/SetExamination";
+import { ViewExam } from "./components/admin/ViewExam";
+
+import { StudentDashboard } from "./components/student/StudentDashboard";
+import { Exam } from "./components/student/Exam";
 import { ExamSchedule } from "./components/student/ExamSchedule";
-import { Layout } from './components/Layout';
-import './custom.css';
-import { Questions } from './components/Questions';
-import { AddEdit } from './components/AddEdit';
+
+import { Logout } from "./components/Logout";
 
 export default class App extends Component {
-  static displayName = App.name;
+    static displayName = App.name;
+    isAdmin = SessionManager.getUserType()
 
-  render() {
-      return(
-      SessionManager.getToken() ? (
-        <Layout>
-            <Routes>
-              <Route exact path='/home' element={<Home />} />
-                <Route path='/logout' element={<Logout />} />
-                <Route path='/questions' element={<Questions />} />
-                <Route path='/exam-schedules' element={<ExamSchedule/>} />
-                <Route path='/student-details' element={<List />} />
-                <Route path='/student-details/edit/:id' element={<AddEdit />} />
-                <Route path='/student-details/add' element={<AddEdit />} />
+    render() {
+        return (
+            <Layout>
+                <Routes>
+                    <Route path="admin-dashboard" element={<AdminDashboard />} />
+                    <Route path="exam-result" element={<ExamResults />} />
+                    <Route path="add-questions" element={<AddEditQuestions />} />
+                    <Route path="exam-schedule" element={<SetExamination />} />
+                    <Route path="view-exam" element={<ViewExam />} />
+                    <Route path="logout" element={<Logout />} />
+                    <Route path="student-dashboard" element={<StudentDashboard />} />
+                    <Route path="exams" element={<Exam />} />
+                    <Route path="exam-schedule" element={<ExamSchedule />} />
+                    <Route path="logout" element={<Logout />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="login" element={<Login />} />
             </Routes>
         </Layout>
-
-      ) : (
-    <>
-        <Layout>
-            <Routes>
-                <Route path={'/', "/login"} element={<Login/>} />
-                <Route path='/student-details' element={<List />}></Route>
-                <Route path='/questions' element={<Questions />} />
-                <Route path='/exam-schedules' element={<ExamSchedule />} />
-                <Route path='/student-details' element={<List />} />
-                <Route path='/student-details/edit/:id' element={<AddEdit />} />
-                <Route path='/student-details/add' element={<AddEdit />} />
-            </Routes>
-        </Layout>
-    </>
-)
-);
+        )
 }
 }

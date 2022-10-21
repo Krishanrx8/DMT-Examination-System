@@ -2,61 +2,64 @@
 using Microsoft.AspNetCore.Mvc;
 using DMT_ExaminationSystem.Models.Users;
 using DMT_ExaminationSystem.Services;
+using DMT_ExaminationSystem.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
-    [Route("[controller]")]
-    public class UsersController : ControllerBase
+[Route("[controller]")]
+public class UsersController : ControllerBase
+{
+    private IUserService _userService;
+    private IMapper _mapper;
+
+    public UsersController(
+        IUserService userService,
+        IMapper mapper)
     {
-        private IUserService _userService;
-        private IMapper _mapper;
+        _userService = userService;
+        _mapper = mapper;
+    }
 
-        public UsersController(
-            IUserService userService,
-            IMapper mapper)
-        {
-            _userService = userService;
-            _mapper = mapper;
-        }
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+        var users = _userService.GetAll();
+        return Ok(users);
+    }
 
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _userService.GetAll();
-            return Ok(users);
-        }
+    [HttpGet("{user_id}")]
+    public IActionResult GetById(int user_id)
+    {
+        var user = _userService.GetById(user_id);
+        return Ok(user);
+    }
 
-        [HttpGet("{user_id}")]
-        public IActionResult GetById(int user_id)
-        {
-            var user = _userService.GetById(user_id);
-            return Ok(user);
-        }
+    [HttpPost]
+    public IActionResult Create(CreateRequest model)
+    {
+        _userService.Create(model);
+        return Ok(new { message = "User created" });
+    }
 
-        [HttpPost]
-        public IActionResult Create(CreateRequest model)
-        {
-            _userService.Create(model);
-            return Ok(new { message = "User created" });
-        }
+    [HttpPut("{user_id}")]
+    public IActionResult Update(int user_id, UpdateRequest model)
+    {
+        _userService.Update(user_id, model);
+        return Ok(new { message = "User updated" });
+    }
 
-        [HttpPut("{user_id}")]
-        public IActionResult Update(int user_id, UpdateRequest model)
-        {
-            _userService.Update(user_id, model);
-            return Ok(new { message = "User updated" });
-        }
-
-        [HttpPost("login")]
-        public IActionResult Login(LoginRequest model)
-        {
-            _userService.Login(model);
-            return Ok(new { message = "User logged" });
-        }
+    [AllowAnonymous]
+    [HttpPost("login")]
+    public IActionResult Login(AuthenticateRequest model)
+    {
+        var response = _userService.Authenticate(model);
+        return Ok(response);    
+    }
 
     [HttpDelete("{user_id}")]
-        public IActionResult Delete(int user_id)
-        {
-            _userService.Delete(user_id);
-            return Ok(new { message = "User deleted" });
-        }
+    public IActionResult Delete(int user_id)
+    {
+        _userService.Delete(user_id);
+        return Ok(new { message = "User deleted" });
     }
+}

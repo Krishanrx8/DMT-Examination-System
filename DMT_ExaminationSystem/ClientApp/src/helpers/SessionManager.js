@@ -1,23 +1,36 @@
 ﻿const SessionManager = {
 
-    getToken() {
-        const token = sessionStorage.getItem('token');
-        if (token) return token;
+    getUserType() {
+        const user = sessionStorage.getItem("usertype");
+        if (user) return user;
         else return null;
     },
 
-    setUserSession(userName, token, userId, usersRole) {
-        sessionStorage.setItem('userName', userName);
-        sessionStorage.setItem('token', token);
-        sessionStorage.setItem('userId', userId);
-        sessionStorage.setItem('usersRole', usersRole);
+    setUserSession(user_id, full_name, avatar, username, phone_number, email, user_type) {
+        let usertype;
+        if (user_type === 0) {
+            usertype = "admin";
+        }
+        else if (user_type === 1) {
+            usertype = "user";
+        }        
+        sessionStorage.setItem("user_id", user_id);
+        sessionStorage.setItem("full_name", full_name);
+        sessionStorage.setItem("avatar", avatar);
+        sessionStorage.setItem("username", username);
+        sessionStorage.setItem("phone_number", phone_number);
+        sessionStorage.setItem("email", email);
+        sessionStorage.setItem("usertype", usertype);
     },
 
     removeUserSession() {
-        sessionStorage.removeItem('userName');
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('userId');
-        sessionStorage.removeItem('usersRole');
+        sessionStorage.removeItem("user_id");
+        sessionStorage.removeItem("full_name");
+        sessionStorage.removeItem("avatar");
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("phone_number");
+        sessionStorage.removeItem("email");
+        sessionStorage.removeItem("usertype");
     }
 }
 

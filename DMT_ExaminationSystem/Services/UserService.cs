@@ -12,7 +12,7 @@ public interface IUserService
     User GetById(int user_id);
     void Create(CreateRequest model);
     void Update(int user_id, UpdateRequest model);
-    void Login(LoginRequest model);
+    User Authenticate(AuthenticateRequest model);
     void Delete(int user_id);
 }
 
@@ -44,7 +44,7 @@ public class UserService : IUserService
 
         // validate
         if (_context.User.Any(x => x.username == model.username))
-            throw new AppException("User with the email '" + model.email + "' already exists");
+            throw new AppException("User with the email " + model.email + " already exists");
 
         // map model to new user object
         var user = _mapper.Map<User>(model);
@@ -63,7 +63,7 @@ public class UserService : IUserService
 
         // validate
         if (model.email != user.email && _context.User.Any(x => x.email == model.email))
-            throw new AppException("User with the email '" + model.email + "' already exists");
+            throw new AppException("User with the email " + model.email + " already exists");
 
         // hash password if it was entered
        /* if (!string.IsNullOrEmpty(model.Password))
@@ -75,31 +75,19 @@ public class UserService : IUserService
         _context.SaveChanges();
     }
 
-    public void Login(LoginRequest model)
+    public User Authenticate(AuthenticateRequest model)
     {
-        var user = _context.User.Where(u => u.username == model.username);
-        if ((_context.User.Any(x => x.username == model.username)) && (_context.User.Any(x => x.password == model.password)))
-        {
-            Console.WriteLine(user);
-        }
-    }
-
-    /*public void Login(LoginRequest model)
-    {
-        var user = _context.User.Where(u => u.username == model.username);
+        // var user = _context.User.SingleOrDefault(x => x.username == model.username);
+        var user = _context.User.Where(x => x.username.Equals(model.username) &&
+                      x.password.Equals(model.password)).FirstOrDefault();
         // validate
-        if ((_context.User.Any(x => x.username == model.username)) && (_context.User.Any(x => x.password == model.password)))
-        {
-            Console.WriteLine("success");
-        }
+        if (user == null)
+            throw new AppException("Username or password is incorrect");
 
-        // hash password if it was entered
-        *//* if (!string.IsNullOrEmpty(model.Password))
-             user.PasswordHash = BCrypt.HashPassword(model.Password);*//*
-
-        // copy model to user and save
-        _mapper.Map(model, user);
-    }*/
+        // authentication successful
+        var response = _mapper.Map<User>(user);
+        return response;
+    }
 
     public void Delete(int user_id)
     {

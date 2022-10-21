@@ -43,7 +43,7 @@ public class ExamineeService : IExamineeService
 
         // validate
         if (_context.Examinee.Any(x => x.examinee_id == model.examinee_id))
-            throw new AppException("Examinee with the examinee_id '" + model.examinee_id + "' already exists");
+            throw new AppException("Examinee with the examinee_id " + model.examinee_id + " already exists");
 
         // map model to new examinee object
         var examinee = _mapper.Map<Examinee>(model);
@@ -62,7 +62,7 @@ public class ExamineeService : IExamineeService
 
         // validate
         if (model.examinee_id != examinee.examinee_id && _context.Examinee.Any(x => x.examinee_id == model.examinee_id))
-            throw new AppException("Examinee with the examinee_id '" + model.examinee_id + "' already exists");
+            throw new AppException("Examinee with the examinee_id " + model.examinee_id + " already exists");
 
         // hash password if it was entered
        /* if (!string.IsNullOrEmpty(model.Password))

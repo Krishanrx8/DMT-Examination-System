@@ -9,28 +9,28 @@ export const fetchWrapper = {
 };
 
 function get(url) {
-    let token = SessionManager.getToken();
+    let token = SessionManager.getUserType();
     const requestOptions = {
-        method: 'GET',
+        method: "GET",
         headers: {
             "access-control-allow-origin": "*",
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
         },
     };
     return fetch(url, requestOptions).then(handleResponse);
 }
 
 function post(url, body) {
-    let token = SessionManager.getToken();
+    let token = SessionManager.getUserType();
     const requestOptions = {
-        method: 'POST',
+        method: "POST",
         headers: {
             "access-control-allow-origin": "*",
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
         },
         body: JSON.stringify(body),
     };
@@ -39,11 +39,11 @@ function post(url, body) {
 
 function postDataForLogin(url, body) {
     let requestOptions = {
-        method: 'POST',
+        method: "POST",
         headers: {
             "access-control-allow-origin": "*",
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(body)
 
@@ -52,14 +52,14 @@ function postDataForLogin(url, body) {
 }
 
 function put(url, body) {
-    let token = SessionManager.getToken();
+    let token = SessionManager.getUserType();
     const requestOptions = {
-        method: 'PUT',
+        method: "PUT",
         headers: {
             "access-control-allow-origin": "*",
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
         },
         body: JSON.stringify(body)
     };
@@ -68,14 +68,14 @@ function put(url, body) {
 
 // prefixed with underscored because delete is a reserved word in javascript
 function _delete(url) {
-    let token = SessionManager.getToken();
+    let token = SessionManager.getUserType();
     const requestOptions = {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
             "access-control-allow-origin": "*",
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
         },
     };
     return fetch(url, requestOptions).then(handleResponse);

@@ -1,8 +1,8 @@
-import { Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Subject } from "rxjs";
+import { filter } from "rxjs/operators";
 
 const alertSubject = new Subject();
-const defaultId = 'default-alert';
+const defaultId = "default-alert";
 
 export const alertService = {
     onAlert,
@@ -15,10 +15,10 @@ export const alertService = {
 };
 
 export const AlertType = {
-    Success: 'Success',
-    Error: 'Error',
-    Info: 'Info',
-    Warning: 'Warning'
+    Success: "Success",
+    Error: "Error",
+    Info: "Info",
+    Warning: "Warning"
 };
 
 // enable subscribing to alerts observable

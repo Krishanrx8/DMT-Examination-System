@@ -43,7 +43,7 @@ public class QuestionBankService : IQuestionBankService
 
         // validate
         if (_context.Question_Bank.Any(x => x.question_id == model.question_id))
-            throw new AppException("Question_Bank with the question_id '" + model.question_id + "' already exists");
+            throw new AppException("Question_Bank with the question_id " + model.question_id + " already exists");
 
         // map model to new question object
         var question = _mapper.Map<Question_Bank>(model);
@@ -62,7 +62,7 @@ public class QuestionBankService : IQuestionBankService
 
         // validate
         if (model.question_id != question.question_id && _context.Question_Bank.Any(x => x.question_id == model.question_id))
-            throw new AppException("Question_Bank with the question_id '" + model.question_id + "' already exists");
+            throw new AppException("Question_Bank with the question_id " + model.question_id + " already exists");
 
         // hash password if it was entered
        /* if (!string.IsNullOrEmpty(model.Password))
